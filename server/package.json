@@ -1,0 +1,25 @@
+{
+  "name": "pokemon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muyu66/pokemon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muyu66/pokemon/issues"
+  },
+  "homepage": "https://github.com/muyu66/pokemon#readme",
+  "dependencies": {
+    "koa": "^1.2.4",
+    "koa-cors": "^0.0.16",
+    "koa-route": "^2.4.2",
+    "socket.io": "^1.7.2"
+  }
+}

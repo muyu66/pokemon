@@ -1,7 +1,8 @@
 <template>
     <div class="window">
-        <input :model="message">
-        <input type="button" value="login" @click='login'>
+        <input v-model="message" placeholder="">
+        <input type="button" value="login" @click='goLogin'>
+        <input v-model="message2" placeholder="">
     </div>
 </template>
 
@@ -11,6 +12,7 @@
         data() {
             return {
                 message: '',
+                message2: '',
             }
         },
         sockets: {
@@ -19,9 +21,12 @@
             }
         },
         methods: {
-            login: function () {
+            goLogin: function () {
                 this.$socket.emit('login', this.message);
-                this.$router.push('index');
+//                this.$socket.on('login', function (msg) {
+//                    this.message2 = msg;
+//                });
+//                this.$router.push('index');
             },
         }
     }

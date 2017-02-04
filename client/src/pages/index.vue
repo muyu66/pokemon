@@ -10,6 +10,9 @@
         data() {
             return {}
         },
+        created: function () {
+            this.$socket.emit('player_status');
+        },
         methods: {
             goPlayerStatus: function () {
                 this.$router.push('player/status');

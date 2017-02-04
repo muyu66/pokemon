@@ -1,24 +1,102 @@
-const Koa = require('koa');
-const Cross = require('koa-cors')();
-const App = Koa();
-const Http = require('http').Server(App.callback());
-const Io = require('socket.io')(Http);
+const koa = require('koa.io');
+const app = koa();
 
-App.use(Cross);
+// middleware for koa
+app.use(function*() {
 
-// 加载 路由
-require('./src/routes/main')(App);
-
-Io.on('connection', function (socket) {
-    console.log('a user connected');
-    socket.on('disconnect', function () {
-        console.log('user disconnected');
-    });
-    socket.on('login', function (msg) {
-        console.log('message: ' + msg);
-    });
 });
 
-Http.listen(8081, function () {
-    console.log('listening on *:8081');
+
+// middleware for socket.io's connect and disconnect
+app.io.use(function*(next) {
+    console.log('somebody connected');
+
+    // let Mongoose = require('mongoose');
+    // Mongoose.connect('mongodb://localhost/pokemon');
+    // let db = Mongoose.connection;
+    // db.on('error', console.error.bind(console, 'connection error:'));
+    // db.once('open', function () {
+    //     console.log("MongoDB Opened!");
+    // });
+    //
+    // let Player = Mongoose.model('Player', { name: String, gold: Number });
+    //
+    // Player.findOne({ name: '小智' }, 'name gold', function (err, model) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    // });
+
+    // on connect
+    yield* next;
+
+    // this.broadcast.emit('login','sss');
+
+    // on disconnect
 });
+
+app.io.use(function*(next) {
+    console.log('xxx connected');
+    yield* next;
+});
+
+// router for socket event
+app.io.route('login', function*() {
+    let message = this.args[0];
+
+    console.log(message);
+    // we tell the client to execute 'new message'
+    // this.broadcast.emit('login', 'asdas');
+});
+
+app.listen(8081);
+
+
+//
+//
+// const Cross = require('koa-cors')();
+// const Koa = require('koa');
+// const App = module.exports = Koa();
+// const Http = require('http').Server(App.callback());
+// const Io = require('socket.io')(Http);
+
+// const Auth = require('./src/controllers/auth');
+// const Player = require('./src/controllers/player');
+
+// import Auth from './src/controllers/auth';
+// import Player from './src/controllers/player';
+
+// App.use(Cross);
+//
+// Io.on('connection', function (socket) {
+//     console.log('a user connected');
+//     socket.on('disconnect', function () {
+//         console.log('user disconnected');
+//     });
+//
+//     /**
+//      * 路由
+//      */
+//     socket.on('login', function (msg) {
+//         // return Auth.getLogin(msg);
+//     });
+//     socket.on('player_status', function () {
+//         let Mongoose = require('mongoose');
+//         Mongoose.connect('mongodb://localhost/pokemon');
+//         let db = Mongoose.connection;
+//         db.on('error', console.error.bind(console, 'connection error:'));
+//         db.once('open', function () {
+//             console.log("MongoDB Opened!");
+//         });
+//
+//         let Player = Mongoose.model('Player', { name: String, gold: Number });
+//
+//         Player.findOne({ name: '小智' }, 'name gold', function (err, model) {
+//             return yield model;
+//         })
+//     });
+// });
+//
+// Http.listen(8081, function () {
+//     console.log('listening on *:8081');
+// });

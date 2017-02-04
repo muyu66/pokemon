@@ -1,27 +1,12 @@
-module.exports = function (App) {
+import Base from './base';
+import Auth from '../controllers/auth';
 
-    const Route = require('koa-route');
-
-    /**
-     * 路由
-     */
-
-    App.use(Route.get('/', index));
-    App.use(Route.get('/:url1/:url2', dispatch));
-
-    /**
-     * 路由方法
-     */
-
-    function* index() {
-        this.body = {
-            status_code: 200,
-            status_msg: 'ok',
-        };
+export default class Main extends Base {
+    constructor(msg, ctl, method) {
+        super();
+        switch (ctl) {
+            case 'auth':
+                return new Auth(msg, method);
+        }
     }
-
-    function* dispatch(url1, url2) {
-        this.body = require('../controllers/' + url1 + '_' + url2)();
-    }
-
-};
+}

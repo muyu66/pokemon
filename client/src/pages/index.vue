@@ -1,6 +1,7 @@
 <template>
     <div class="window">
-        <button @click="goPlayerStatus()">status</button>
+        {{ msg }}
+        <!--<button @click="goPlayerStatus()">status</button>-->
     </div>
 </template>
 
@@ -8,15 +9,22 @@
     export default {
         name: 'index',
         data() {
-            return {}
+            return {
+                msg: '',
+            }
         },
         created: function () {
-            this.$socket.emit('player_status');
+            this.$socket.emit('getPlayerStatus');
+        },
+        sockets: {
+            getPlayerStatus: function (msg) {
+                this.msg = msg;
+            },
         },
         methods: {
-            goPlayerStatus: function () {
-                this.$router.push('player/status');
-            },
+//            goPlayerStatus: function () {
+//                this.$router.push('player/status');
+//            },
         },
     }
 </script>

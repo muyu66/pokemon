@@ -1,6 +1,6 @@
 const koa = require('koa.io');
 const app = koa();
-import Player from './src/models/player';
+import Player from './app/models/player';
 
 // middleware for koa
 app.use(function *() {
@@ -25,6 +25,28 @@ app.io.route('getPlayerStatus', function *(next, message) {
         socket.emit('getPlayerStatus', model);
     });
 });
+
+app.io.route('getIllustrated', function *(next, name) {
+    let socket = this;
+    Player.findOne({ name: name }, 'name power', function (err, model) {
+        socket.emit('getIllustrated', model);
+    });
+});
+
+// //todo
+// app.io.route('getUser', function *(next, message) {
+//     let socket = this;
+//     Player.findOne({ name: '小智' }, 'name gold', function (err, model) {
+//         socket.emit('getPlayerStatus', model);
+//     });
+// });
+// //todo
+// app.io.route('postUser', function *(next, message) {
+//     let socket = this;
+//     Player.findOne({ name: '小智' }, 'name gold', function (err, model) {
+//         socket.emit('getPlayerStatus', model);
+//     });
+// });
 
 app.listen(8081);
 

@@ -4,14 +4,13 @@
         <input v-model="account" placeholder="">
         密码
         <input v-model="password" placeholder="">
-        <input type="button" value="登录" @click='postAuthLogin'>
-        <input type="button" value="注册" @click='goRegister'>
+        <input type="button" value="register" @click='postAuthRegister'>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'login',
+        name: 'register',
         data() {
             return {
                 account: '',
@@ -19,21 +18,15 @@
             }
         },
         sockets: {
-            connect: function () {
-                console.log('成功连接服务器');
-            },
-            postAuthLogin: function (msg) {
+            postAuthRegister: function (msg) {
                 console.log(msg);
             },
         },
         methods: {
-            postAuthLogin: function () {
+            postAuthRegister: function () {
                 let user = { account: this.account, password: this.password };
-                this.$socket.emit('postAuthLogin', user);
-                this.$router.push('index');
-            },
-            goRegister: function () {
-                this.$router.push('register');
+                this.$socket.emit('postAuthRegister', user);
+//                this.$router.push('index');
             },
         }
     }

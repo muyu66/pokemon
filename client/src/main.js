@@ -8,9 +8,10 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(Socket, 'http://localhost:8081');
 
-import Index from './pages/index'
-import Login from './pages/login'
-import PlayerStatus from './pages/player_status'
+import Index from './pages/index';
+import Login from './pages/login';
+import Register from './pages/register';
+import PlayerStatus from './pages/player_status';
 
 const router = new VueRouter({
     mode: 'history',
@@ -28,6 +29,13 @@ const router = new VueRouter({
             component: Login,
             meta: {
                 title: '登录 - 神奇宝贝'
+            },
+        },
+        {
+            path: '/register',
+            component: Register,
+            meta: {
+                title: '注册 - 神奇宝贝'
             },
         },
         {

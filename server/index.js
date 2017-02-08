@@ -1,6 +1,7 @@
 // 加载 Socket 框架
 import Koa from 'koa.io';
 const App = Koa();
+
 // 加载路由表
 import RouteMain from './app/routes/main';
 

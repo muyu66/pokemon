@@ -11,7 +11,8 @@ Vue.use(Socket, 'http://localhost:8081');
 import Index from './pages/index';
 import Login from './pages/login';
 import Register from './pages/register';
-import PlayerStatus from './pages/player_status';
+import Player from './pages/player';
+import MonsterAll from './pages/monster_all.vue';
 
 const router = new VueRouter({
     mode: 'history',
@@ -46,10 +47,17 @@ const router = new VueRouter({
             },
         },
         {
-            path: '/player/status',
-            component: PlayerStatus,
+            path: '/player',
+            component: Player,
             meta: {
-                title: '状态 - 神奇宝贝'
+                title: '玩家 - 神奇宝贝'
+            },
+        },
+        {
+            path: '/monster_all',
+            component: MonsterAll,
+            meta: {
+                title: '图鉴 - 神奇宝贝'
             },
         },
     ]

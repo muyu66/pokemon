@@ -1,36 +1,10 @@
-export default function () {
-    let Mongoose = require('mongoose');
-    Mongoose.connect('mongodb://localhost/pokemon');
-    let db = Mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function () {
-        console.log("MongoDB Opened!");
-    });
+import Base from './base';
+import Player from '../models/player';
 
-    let Player = Mongoose.model('Player', { name: String, gold: Number });
-
-    yield Player.findOne({ name: '小智' }, 'name gold', function (err, model) {
-        return model;
-    })
+export default class PlayerCtl extends Base {
+    getPlayer(socket, name) {
+        Player.findOne({ name: name }, 'name gold', function (err, model) {
+            socket.emit(socket.event, model);
+        });
+    }
 }
-
-
-// import Base from './base';
-//
-// export default class Player extends Base {
-//     static getStatus() {
-//         let Mongoose = require('mongoose');
-//         Mongoose.connect('mongodb://localhost/pokemon');
-//         let db = Mongoose.connection;
-//         db.on('error', console.error.bind(console, 'connection error:'));
-//         db.once('open', function () {
-//             console.log("MongoDB Opened!");
-//         });
-//
-//         let Player = Mongoose.model('Player', { name: String, gold: Number });
-//
-//         yield Player.findOne({ name: '小智' }, 'name gold', function (err, model) {
-//             return model;
-//         })
-//     }
-// }

@@ -1,5 +1,11 @@
 import Db from '../commons/db';
 
-let Monster = Db.model('Monster', { name: String, no: Number });
+let schema = {
+    no: String,
+    name: String,
+    power: Number
+};
+
+let Monster = Db.model('Monster', schema);
 
 export default Monster;

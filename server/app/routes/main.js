@@ -1,43 +1,34 @@
-import User from '../models/user';
-import Player from '../models/player';
+import AuthCtl from '../controllers/auth';
+import PlayerCtl from '../controllers/player';
+import MonsterCtl from '../controllers/monster';
+
+import AuthMiddleware from '../middlewares/auth';
+
 
 export default class Main {
     constructor(app) {
-        app.io.route('postAuthLogin', function *(next, user) {
-            let socket = this;
-            User.findOne({ account: user.account }, 'account password', function (err, model) {
-                if (model.password === user.password) {
-                    socket.emit('postAuthLogin', 'ok');
-                    console.log('user ' + user.account + ' logined');
-                } else {
-                    socket.emit('postAuthLogin', 'failed');
-                    console.log('user ' + user.account + ' login failed');
-                }
-            });
-        });
+        app.io.route('*', function *(next, params) {
 
-        app.io.route('postAuthRegister', function *(next, user) {
-            let socket = this;
-            let model = new User({ account: user.account, password: user.password });
-            model.save(function () {
-                socket.emit('postAuthRegister', 'ok');
-                console.log('user created ', user);
-            });
-        });
+            // 路由中间件 - 验证是否有登录状态
+            let excepts = ['postAuthLogin', 'postAuthRegister'];
+            if (excepts.indexOf(this.event) === -1) {
+                new AuthMiddleware(this);
+            }
 
-        //todo
-        app.io.route('getIllustrated', function *(next, name) {
-            let socket = this;
-            Player.findOne({ name: name }, 'name power', function (err, model) {
-                socket.emit('getIllustrated', model);
-            });
-        });
-
-        app.io.route('getPlayerStatus', function *(next, message) {
-            let socket = this;
-            Player.findOne({ name: '小智' }, 'name gold', function (err, model) {
-                socket.emit('getPlayerStatus', model);
-            });
+            switch (this.event) {
+                case 'postAuthLogin':
+                    new AuthCtl(this.event, this, params);
+                    break;
+                case 'postAuthRegister':
+                    new AuthCtl(this.event, this, params);
+                    break;
+                case 'getPlayer':
+                    new PlayerCtl(this.event, this, params);
+                    break;
+                case 'getMonster':
+                    new MonsterCtl(this.event, this, params);
+                    break;
+            }
         });
     }
 }

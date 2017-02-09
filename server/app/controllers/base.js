@@ -13,6 +13,12 @@ export default class Base {
             case 'getMonster':
                 this.getMonster(socket, params);
                 break;
+            case 'postPlayerCreate':
+                this.postPlayerCreate(socket, params);
+                break;
+            case 'postPlayerUse':
+                this.postPlayerUse(socket, params);
+                break;
             default:
                 console.log('路由方法不正确');
         }

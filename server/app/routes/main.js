@@ -1,9 +1,9 @@
 import AuthCtl from '../controllers/auth';
 import PlayerCtl from '../controllers/player';
 import MonsterCtl from '../controllers/monster';
+import PlayerMonsterCtl from '../controllers/player_monster';
 
 import AuthMiddleware from '../middlewares/auth';
-
 
 export default class Main {
     constructor(app) {
@@ -25,8 +25,17 @@ export default class Main {
                 case 'getPlayer':
                     new PlayerCtl(this.event, this, params);
                     break;
+                case 'postPlayerCreate':
+                    new PlayerCtl(this.event, this, params);
+                    break;
+                case 'postPlayerUse':
+                    new PlayerCtl(this.event, this, params);
+                    break;
                 case 'getMonster':
                     new MonsterCtl(this.event, this, params);
+                    break;
+                case 'getPlayerMonster':
+                    new PlayerMonsterCtl(this.event, this, params);
                     break;
             }
         });

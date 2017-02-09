@@ -1,5 +1,11 @@
 import Db from '../commons/db';
+import Base from './base';
 
-let Player = Db.model('Player', { name: String, gold: Number });
+let schema = Object.assign(Base.schema, {
+    name: String,
+    user_id: String,
+});
+
+let Player = Db.model('Player', schema);
 
 export default Player;

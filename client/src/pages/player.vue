@@ -1,6 +1,14 @@
 <template>
     <div class="window">
-        {{ player }}
+        <ul>
+            <li v-for="player in players">
+                {{ player.name }}
+                <input type="button" value="使用" @click='postPlayerUse(player._id)'>
+            </li>
+        </ul>
+        帐号
+        <input v-model="name" placeholder="">
+        <input type="button" value="创建角色" @click='postPlayerCreate()'>
     </div>
 </template>
 
@@ -9,20 +17,30 @@
         name: 'player',
         data() {
             return {
-                player: '',
+                players: '',
+                name: '',
             }
         },
         created: function () {
             this.getPlayer();
         },
         sockets: {
-            getPlayer: function (player) {
-                this.player = player;
+            getPlayer: function (players) {
+                this.players = players;
+            },
+            postPlayerCreate: function (players) {
+                this.getPlayer(players);
             },
         },
         methods: {
             getPlayer: function () {
-                this.$socket.emit('getPlayer', '小智');
+                this.$socket.emit('getPlayer', '');
+            },
+            postPlayerCreate: function () {
+                this.$socket.emit('postPlayerCreate', this.name);
+            },
+            postPlayerUse: function (id) {
+                this.$socket.emit('postPlayerUse', id);
             },
         },
     }

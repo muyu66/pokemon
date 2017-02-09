@@ -2,6 +2,7 @@
     <div class="window">
         <button @click="goPlayer()">Player</button>
         <button @click="goMonsterAll()">MonsterAll</button>
+        <button @click="goFight()">Fight</button>
     </div>
 </template>
 
@@ -17,6 +18,9 @@
             },
             goMonsterAll: function () {
                 this.$router.push('monster_all');
+            },
+            goFight: function () {
+                this.$router.push('fight');
             },
         },
     }

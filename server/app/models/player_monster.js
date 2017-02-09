@@ -3,7 +3,7 @@ import Base from './base';
 
 let schema = Object.assign(Base.schema, {
     player_id: String,
-    monster_id: String,
+    monster_id: { type: Db.Schema.Types.ObjectId, ref: 'Monster' },
     level: Number,
 });
 

@@ -26,36 +26,50 @@ monster_data.forEach(function (data) {
     }
 );
 
+let players1 = ['小智', '小广'];
+createUser('aaa', '111', players1);
+
+let players2 = ['小德', '小李广'];
+createUser('ccc', '111', players2);
+
 // 导入 用户
-let user = new User({
-    account: 'aaa',
-    password: '111',
-});
-user.save(function () {
-    console.log('完成 导入 用户');
-});
+function createUser(account, password, players) {
+    let user = new User({
+        account: account,
+        password: password,
+    });
+    user.save(function () {
+        console.log('完成 导入 用户' + account);
+        createPlayer(players, user);
+    });
+}
 
-let roles = ['小智', '小广'];
-roles.forEach(function (role) {
-        // 导入 玩家
-        let player = new Player({
-            name: role,
-            user_id: user._id,
-        });
-        player.save(function () {
-            console.log('完成 导入 玩家');
-
-            // 导入 玩家 Pokemon 001
-            Monster.findOne({ no: '001' }, '', function (err, model) {
-                let player_monster = new PlayerMonster({
-                    player_id: player._id,
-                    monster_id: model._id,
-                    level: 1,
-                });
-                player_monster.save(function () {
-                    console.log('完成 导入 玩家 Pokemon ' + model.name);
-                });
+// 导入 玩家
+function createPlayer(players, user) {
+    players.forEach(function (player) {
+            let model = new Player({
+                name: player,
+                user_id: user._id,
             });
+            model.save(function () {
+                console.log('完成 导入 玩家');
+                createPlayerMonster(model, '001');
+                createPlayerMonster(model, '002');
+            });
+        }
+    );
+}
+
+// 导入 玩家 Pokemon 001
+function createPlayerMonster(player, no) {
+    Monster.findOne({ no: no }, '', function (err, model) {
+        let player_monster = new PlayerMonster({
+            player_id: player._id,
+            monster_id: model._id,
+            level: 1,
         });
-    }
-);
+        player_monster.save(function () {
+            console.log('完成 导入 玩家 Pokemon ' + model.name);
+        });
+    });
+}

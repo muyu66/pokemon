@@ -14,6 +14,7 @@ import Register from './pages/register';
 import Player from './pages/player';
 import MonsterAll from './pages/monster_all';
 import PlayerMonster from './pages/player_monster';
+import Fight from './pages/fight';
 
 const router = new VueRouter({
     mode: 'history',
@@ -66,6 +67,13 @@ const router = new VueRouter({
             component: PlayerMonster,
             meta: {
                 title: '我的 Pokemon - 神奇宝贝'
+            },
+        },
+        {
+            path: '/fight',
+            component: Fight,
+            meta: {
+                title: '战斗 - 神奇宝贝'
             },
         },
 

@@ -12,7 +12,8 @@ import Index from './pages/index';
 import Login from './pages/login';
 import Register from './pages/register';
 import Player from './pages/player';
-import MonsterAll from './pages/monster_all.vue';
+import MonsterAll from './pages/monster_all';
+import PlayerMonster from './pages/player_monster';
 
 const router = new VueRouter({
     mode: 'history',
@@ -60,13 +61,20 @@ const router = new VueRouter({
                 title: '图鉴 - 神奇宝贝'
             },
         },
+        {
+            path: '/player_monster',
+            component: PlayerMonster,
+            meta: {
+                title: '我的 Pokemon - 神奇宝贝'
+            },
+        },
+
     ]
 });
 
 router.afterEach((to, from) => {
     document.title = to.meta.title;
-})
-;
+});
 
 new Vue({
     router: router,

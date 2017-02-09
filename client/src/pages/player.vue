@@ -9,6 +9,9 @@
         帐号
         <input v-model="name" placeholder="">
         <input type="button" value="创建角色" @click='postPlayerCreate()'>
+        <input type="button" value="我的角色" @click='getPlayerMy()'>
+        {{ my_player }}
+        <input type="button" value="我的pokemon" @click='goPlayerMonster()'>
     </div>
 </template>
 
@@ -18,6 +21,7 @@
         data() {
             return {
                 players: '',
+                my_player: '',
                 name: '',
             }
         },
@@ -28,6 +32,9 @@
             getPlayer: function (players) {
                 this.players = players;
             },
+            getPlayerMy: function (player) {
+                this.my_player = player;
+            },
             postPlayerCreate: function (players) {
                 this.getPlayer(players);
             },
@@ -36,11 +43,17 @@
             getPlayer: function () {
                 this.$socket.emit('getPlayer', '');
             },
+            getPlayerMy: function () {
+                this.$socket.emit('getPlayerMy', '');
+            },
             postPlayerCreate: function () {
                 this.$socket.emit('postPlayerCreate', this.name);
             },
             postPlayerUse: function (id) {
                 this.$socket.emit('postPlayerUse', id);
+            },
+            goPlayerMonster: function () {
+                this.$router.push('player_monster');
             },
         },
     }

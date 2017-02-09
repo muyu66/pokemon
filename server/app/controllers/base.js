@@ -10,6 +10,9 @@ export default class Base {
             case 'getPlayer':
                 this.getPlayer(socket, params);
                 break;
+            case 'getPlayerMy':
+                this.getPlayerMy(socket, params);
+                break;
             case 'getMonster':
                 this.getMonster(socket, params);
                 break;
@@ -18,6 +21,9 @@ export default class Base {
                 break;
             case 'postPlayerUse':
                 this.postPlayerUse(socket, params);
+                break;
+            case 'getPlayerMonster':
+                this.getPlayerMonster(socket, params);
                 break;
             default:
                 console.log('路由方法不正确');

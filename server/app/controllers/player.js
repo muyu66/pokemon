@@ -8,6 +8,12 @@ export default class PlayerCtl extends Base {
         });
     }
 
+    getPlayerMy(socket, empty) {
+        Player.findOne({ _id: socket.session.player_id }, '', function (err, model) {
+            socket.emit(socket.event, model);
+        });
+    }
+
     postPlayerCreate(socket, name) {
         let self = this;
         let player = new Player({
@@ -16,13 +22,17 @@ export default class PlayerCtl extends Base {
         });
         player.save(function () {
             console.log('created ' + player.name);
-            self.getPlayer(socket, '');
+            self.getPlayer(socket, 'all');
         });
     }
 
     postPlayerUse(socket, id) {
         Player.findOne({ _id: id }, '', function (err, model) {
-            console.log(model);
+            console.log('used ' + model.name);
+            let tmp = {
+                'player_id': model._id,
+            };
+            socket.session = Object.assign(socket.session, tmp);
             socket.emit(socket.event, 'ok');
         });
     }

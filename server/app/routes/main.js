@@ -25,6 +25,9 @@ export default class Main {
                 case 'getPlayer':
                     new PlayerCtl(this.event, this, params);
                     break;
+                case 'getPlayerMy':
+                    new PlayerCtl(this.event, this, params);
+                    break;
                 case 'postPlayerCreate':
                     new PlayerCtl(this.event, this, params);
                     break;
@@ -37,6 +40,8 @@ export default class Main {
                 case 'getPlayerMonster':
                     new PlayerMonsterCtl(this.event, this, params);
                     break;
+                default:
+                    throw '未知路由';
             }
         });
     }

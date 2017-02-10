@@ -15,6 +15,7 @@ import Player from './pages/player';
 import MonsterAll from './pages/monster_all';
 import PlayerMonster from './pages/player_monster';
 import Fight from './pages/fight';
+import Map from './pages/map';
 
 const router = new VueRouter({
     mode: 'history',
@@ -76,7 +77,13 @@ const router = new VueRouter({
                 title: '战斗 - 神奇宝贝'
             },
         },
-
+        {
+            path: '/map',
+            component: Map,
+            meta: {
+                title: '地图 - 神奇宝贝'
+            },
+        },
     ]
 });
 

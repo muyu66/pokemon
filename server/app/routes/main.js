@@ -2,6 +2,7 @@ import AuthCtl from '../controllers/auth';
 import PlayerCtl from '../controllers/player';
 import MonsterCtl from '../controllers/monster';
 import PlayerMonsterCtl from '../controllers/player_monster';
+import MapCtl from '../controllers/map';
 
 import AuthMiddleware from '../middlewares/auth';
 
@@ -39,6 +40,9 @@ export default class Main {
                     break;
                 case 'getPlayerMonster':
                     new PlayerMonsterCtl(this.event, this, params);
+                    break;
+                case 'getMap':
+                    new MapCtl(this.event, this, params);
                     break;
                 default:
                     throw '未知路由';

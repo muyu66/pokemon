@@ -3,10 +3,10 @@ import Base from './base';
 
 let schema = Object.assign(Base.schema, {
     name: String,
-    user_id: String,
     position: Object,
+    monster_ids: Array,
 });
 
-let Player = Db.model('Player', schema);
+let Area = Db.model('Area', schema);
 
-export default Player;
+export default Area;

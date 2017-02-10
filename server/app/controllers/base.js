@@ -25,6 +25,9 @@ export default class Base {
             case 'getPlayerMonster':
                 this.getPlayerMonster(socket, params);
                 break;
+            case 'getMap':
+                this.getMap(socket, params);
+                break;
             default:
                 console.log('路由方法不正确');
         }

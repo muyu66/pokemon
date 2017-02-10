@@ -19,6 +19,7 @@ export default class PlayerCtl extends Base {
         let player = new Player({
             name: name,
             user_id: socket.session.id,
+            position: { x: 1, y: 1 },
         });
         player.save(function () {
             console.log('created ' + player.name);

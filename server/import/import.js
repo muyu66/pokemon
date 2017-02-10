@@ -1,14 +1,16 @@
 import Db from '../app/commons/db';
 
 import monster_data from './data/monster';
+import area_data from './data/area';
 
 import Monster from '../app/models/monster';
 import Player from '../app/models/player';
 import User from '../app/models/user';
 import PlayerMonster from '../app/models/player_monster';
+import Area from '../app/models/area';
 
 // 清空数据库
-let databases = ['monsters', 'users', 'players', 'playermonsters'];
+let databases = ['monsters', 'users', 'players', 'playermonsters', 'areas'];
 databases.forEach(function (database) {
         Db.connection.collection(database).drop(function (err) {
             if (err) console.log(err);
@@ -22,6 +24,15 @@ monster_data.forEach(function (data) {
         let monster = new Monster(data);
         monster.save(function () {
             console.log('完成 导入 Pokemon ' + monster.name);
+        });
+    }
+);
+
+// 导入 地图
+area_data.forEach(function (data) {
+        let area = new Area(data);
+        area.save(function () {
+            console.log('完成 导入 Pokemon ' + area.name);
         });
     }
 );
@@ -50,6 +61,7 @@ function createPlayer(players, user) {
             let model = new Player({
                 name: player,
                 user_id: user._id,
+                position: { x: 1, y: 1 },
             });
             model.save(function () {
                 console.log('完成 导入 玩家');

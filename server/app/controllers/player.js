@@ -14,6 +14,13 @@ export default class PlayerCtl extends Base {
         });
     }
 
+    getPlayerAll(socket, empty) {
+        Player.find({}, '', function (err, model) {
+            console.log(model);
+            socket.emit(socket.event, model);
+        });
+    }
+
     postPlayerCreate(socket, name) {
         let self = this;
         let player = new Player({

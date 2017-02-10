@@ -3,6 +3,7 @@ import PlayerCtl from '../controllers/player';
 import MonsterCtl from '../controllers/monster';
 import PlayerMonsterCtl from '../controllers/player_monster';
 import MapCtl from '../controllers/map';
+import FightCtl from '../controllers/fight';
 
 import AuthMiddleware from '../middlewares/auth';
 
@@ -29,6 +30,9 @@ export default class Main {
                 case 'getPlayerMy':
                     new PlayerCtl(this.event, this, params);
                     break;
+                case 'getPlayerAll':
+                    new PlayerCtl(this.event, this, params);
+                    break;
                 case 'postPlayerCreate':
                     new PlayerCtl(this.event, this, params);
                     break;
@@ -43,6 +47,12 @@ export default class Main {
                     break;
                 case 'getMap':
                     new MapCtl(this.event, this, params);
+                    break;
+                case 'postMy':
+                    new FightCtl(this.event, this, params);
+                    break;
+                case 'getEnemy':
+                    new FightCtl(this.event, this, params);
                     break;
                 default:
                     throw '未知路由';

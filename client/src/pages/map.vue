@@ -1,7 +1,6 @@
 <template>
     <div class="window">
-        {{ my_player }}
-        {{ map }}
+        {{ map.name }}
         <input type="button" value="获取我的位置" @click='getMap()'>
     </div>
 </template>

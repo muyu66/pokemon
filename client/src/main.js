@@ -71,7 +71,7 @@ const router = new VueRouter({
             },
         },
         {
-            path: '/fight',
+            path: '/fight/:id',
             component: Fight,
             meta: {
                 title: '战斗 - 神奇宝贝'

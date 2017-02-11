@@ -16,6 +16,7 @@ import MonsterAll from './pages/monster_all';
 import PlayerMonster from './pages/player_monster';
 import Fight from './pages/fight';
 import Map from './pages/map';
+import Message from './pages/message';
 
 const router = new VueRouter({
     mode: 'history',
@@ -82,6 +83,13 @@ const router = new VueRouter({
             component: Map,
             meta: {
                 title: '地图 - 神奇宝贝'
+            },
+        },
+        {
+            path: '/message',
+            component: Message,
+            meta: {
+                title: '信息 - 神奇宝贝'
             },
         },
     ]

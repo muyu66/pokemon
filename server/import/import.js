@@ -10,7 +10,7 @@ import PlayerMonster from '../app/models/player_monster';
 import Area from '../app/models/area';
 
 // 清空数据库
-let databases = ['monsters', 'users', 'players', 'playermonsters', 'areas'];
+let databases = ['monsters', 'users', 'players', 'playermonsters', 'areas', 'messages'];
 databases.forEach(function (database) {
         Db.connection.collection(database).drop(function (err) {
             if (err) console.log(err);

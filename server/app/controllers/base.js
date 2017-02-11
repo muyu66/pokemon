@@ -37,6 +37,9 @@ export default class Base {
             case 'getEnemy':
                 this.getEnemy(socket, params);
                 break;
+            case 'postMessage':
+                this.postMessage(socket, params);
+                break;
             default:
                 console.log('路由方法不正确');
         }

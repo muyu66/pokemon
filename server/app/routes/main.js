@@ -4,6 +4,7 @@ import MonsterCtl from '../controllers/monster';
 import PlayerMonsterCtl from '../controllers/player_monster';
 import MapCtl from '../controllers/map';
 import FightCtl from '../controllers/fight';
+import MessageCtl from '../controllers/message';
 
 import AuthMiddleware from '../middlewares/auth';
 
@@ -53,6 +54,9 @@ export default class Main {
                     break;
                 case 'getEnemy':
                     new FightCtl(this.event, this, params);
+                    break;
+                case 'postMessage':
+                    new MessageCtl(this.event, this, params);
                     break;
                 default:
                     throw '未知路由';

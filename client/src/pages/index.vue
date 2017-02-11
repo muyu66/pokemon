@@ -4,6 +4,7 @@
         <button @click="goMonsterAll()">MonsterAll</button>
         <button @click="goFight()">Fight</button>
         <button @click="goMap()">Map</button>
+        <button @click="goMessage()">Message</button>
     </div>
 </template>
 
@@ -25,6 +26,9 @@
             },
             goMap: function () {
                 this.$router.push('map');
+            },
+            goMessage: function () {
+                this.$router.push('message');
             },
         },
     }
